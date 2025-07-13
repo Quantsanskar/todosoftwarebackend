@@ -67,7 +67,7 @@ router.post("/", protect, async (req, res) => {
     await savedTask.populate("assignedTo", "username")
 
     logAction("TASK_CREATED", savedTask._id, req.user._id, req.user.username, `created task "${savedTask.title}"`)
-    const io = getIo(); // ✅ Add this
+    const io = getIo(); 
     io.emit("taskAdded", savedTask)
     res.status(201).json(savedTask)
   } catch (error) {
@@ -151,7 +151,7 @@ router.put("/:id", protect, async (req, res) => {
       )
     }
     logAction("TASK_UPDATED", updatedTask._id, req.user._id, req.user.username, actionDetails)
-    const io = getIo(); // ✅ Add this
+    const io = getIo(); 
     io.emit("taskUpdated", updatedTask)
     res.json(updatedTask)
   } catch (error) {
@@ -172,7 +172,7 @@ router.delete("/:id", protect, async (req, res) => {
 
     await task.deleteOne()
     logAction("TASK_DELETED", req.params.id, req.user._id, req.user.username, `deleted task "${task.title}"`)
-    const io = getIo(); // ✅ Add this
+    const io = getIo(); 
     io.emit("taskDeleted", req.params.id)
     res.json({ message: "Task removed" })
   } catch (error) {
@@ -208,7 +208,7 @@ router.put("/:id/drag-drop", protect, async (req, res) => {
       req.user.username,
       `dragged task "${updatedTask.title}" from "${oldStatus}" to "${newStatus}"`,
     )
-    const io = getIo(); // ✅ Add this
+    const io = getIo(); 
     io.emit("taskUpdated", updatedTask) // Emit as taskUpdated to update status
     res.json(updatedTask)
   } catch (error) {
@@ -279,7 +279,7 @@ router.post("/:id/smart-assign", protect, async (req, res) => {
       req.user.username,
       `smart assigned "${updatedTask.title}" from ${oldAssignee} to ${newAssignee}`,
     )
-    const io = getIo(); // ✅ Add this
+    const io = getIo(); 
     io.emit("taskUpdated", updatedTask)
     res.json(updatedTask)
   } catch (error) {
