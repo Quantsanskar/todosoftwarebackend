@@ -287,5 +287,11 @@ router.post("/:id/smart-assign", protect, async (req, res) => {
     res.status(500).json({ message: "Server error during smart assignment" })
   }
 })
+router.get('/cron-task', (req, res) => {
+  // You can run any logic here
+  console.log('Cron job endpoint hit at', new Date());
 
+  // Optionally respond with something
+  res.status(200).send('Cron task executed');
+});
 module.exports = router
